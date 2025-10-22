@@ -38,8 +38,8 @@ function ChatSection({messages, onSend,loading}:Props) {
             ))
         )}
         {loading && <div className='flex justify-center items-center p-4'>
-          <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-zinc-800'></div>
-          <span className='ml-2 text-zinc-800'>Thinking... Working on your request</span>
+          <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-gray-600 dark:border-gray-300'></div>
+          <span className='ml-2 text-gray-600 dark:text-gray-300'>Thinking... Working on your request</span>
         </div>}
 
       </div>

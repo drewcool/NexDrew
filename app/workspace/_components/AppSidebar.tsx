@@ -38,7 +38,6 @@ export function AppSidebar() {
   const GetProjectList=async()=>{
     setLoading(true);
     const result = await axios.get('/api/get-all-projects');
-    console.log(result.data);
     setProjectList(result.data);
     setLoading(false);
   }
@@ -65,14 +64,14 @@ export function AppSidebar() {
         messages:messages,
         credits: userDetail?.credits
       });
-      console.log(result.data);
+      
       toast.success('project created!')
       router.push(`/playground/${projectId}?frameId=${frameId}`)
       setUserDetail((prev:any)=>({...prev,credits:prev?.credits! -1}))
       setLoading(false);
     } catch (e) {
       toast.error('Internal server error!')
-      console.log(e);
+      
       setLoading(false);
     }
   }

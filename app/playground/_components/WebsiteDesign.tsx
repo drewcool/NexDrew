@@ -215,28 +215,31 @@ function WebsiteDesign({ generatedCode }: Props) {
         const iframeDoc=iframeRef.current.contentDocument || 
         iframeRef.current.contentWindow?.document;
         if(iframeDoc){
-          const cloneDoc=iframeDoc.documentElement.cloneNode(true) as HTMLElement;
-
-          //Remove all outlines
-
-          const AllEls=cloneDoc.querySelectorAll<HTMLElement>(' *');
+          // Get only the body content from #root to match AI save format
+          const rootEl = iframeDoc.getElementById('root');
+          if (!rootEl) return;
+          
+          // Clean up any outlines in the root content
+          const AllEls = rootEl.querySelectorAll<HTMLElement>('*');
           AllEls.forEach((el)=>{
             el.style.outline='';
             el.style.cursor='';
           })
-          const html=cloneDoc.outerHTML;
-          console.log("HTML to save",html);
+          
+          // Save with ```html prefix to match AI format and loader expectations
+          const bodyContent = rootEl.innerHTML;
+          const designCode = '```html\n' + bodyContent;
 
           const result=await axios.put('/api/frames',{
-            designCode:html,
+            designCode:designCode,
             frameId:frameId,
             projectId:projectId
           });
-          console.log(result.data)
+          
           toast.success('saved successfully!')
         }
       }catch(err){
-        console.log(err);  
+          
       }
     }
   }

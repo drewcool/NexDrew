@@ -68,7 +68,7 @@ function Hero() {
         messages:messages,
         credits: userDetail?.credits
       });
-      console.log(result.data);
+      
       toast.success('project created!')
       //Navigate to playground
       router.push(`/playground/${projectId}?frameId=${frameId}`)
@@ -77,7 +77,7 @@ function Hero() {
 
     } catch (e) {
       toast.error('Internal server error!')
-      console.log(e);
+      
       setLoading(false);
     }
   }
@@ -122,6 +122,10 @@ function Hero() {
         ))}
       </div>
 
+      {/* Copyright */}
+      <div className='mt-8'>
+        <p className='text-sm text-gray-500'>© Made By Ashish Barnwal with ❤️</p>
+      </div>
 
     </div>
   )

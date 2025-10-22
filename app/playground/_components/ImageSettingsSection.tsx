@@ -78,7 +78,7 @@ function ImageSettingSection({ selectedEL }: Props) {
         fileName: Date.now() + ".png",
         isPublished: true
       })
-      console.log(imageRef)
+    
       //@ts-ignore
       selectedEL.setAttribute('src', imageRef?.url + "?tr=")
       setLoading(false);

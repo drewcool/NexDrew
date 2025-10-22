@@ -95,11 +95,10 @@ function PlayGround() {
 
   const GetFrameDetails = async () => {
     const result = await axios.get('/api/frames?frameId=' + frameId+"&projectId="+projectId)
-    console.log(result.data)
     setFrameDetail(result.data);
     
     const designCode = result.data?.designCode;
-    if(designCode){
+    if(designCode && designCode.includes("```html")){
       const index = designCode.indexOf("```html") + 7;
       const formattedCode = designCode.slice(index);
       setGeneratedCode(formattedCode);
@@ -178,7 +177,7 @@ function PlayGround() {
       messages:messages,
       frameId:frameId
     });
-    console.log(result)
+    
   }
 
 
@@ -188,8 +187,8 @@ function PlayGround() {
       frameId:frameId,
       projectId:projectId
     });
-    console.log(result.data)
-    toast.success('Website is Ready!!')
+    
+    toast.success('Response Received!!')
   }
 
   
