@@ -82,13 +82,13 @@ function Header() {
         {!user ? 
           <SignInButton mode='modal' forceRedirectUrl={'/workspace'}>
             <ShimmerButton className="px-4 py-2 text-sm">
-              <span className="flex items-center gap-2">Get Started <ArrowRight size={16} /></span>
+              <span className="flex items-center gap-1">Workspace <ArrowRight size={18} /></span>
             </ShimmerButton>
           </SignInButton>
          : 
           <Link href={'/workspace'}>
             <ShimmerButton className="px-4 py-2 text-sm">
-              <span className="flex items-center gap-2">Get Started <ArrowRight size={16} /></span>
+              <span className="flex items-center gap-1">Workspace <ArrowRight size={18} /></span>
             </ShimmerButton>
           </Link>
         }

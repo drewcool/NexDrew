@@ -97,7 +97,7 @@ export function AppSidebar() {
 
           <div>
             {(!loading&&projectList.length>0) ? projectList.map((project:any,index)=>(
-              <Link href={`/playground/${project.projectId}?frameId=${project.frameId}`} key={index} className="my-2 hover:bg-secondary p-2 rounded-lg cursor-pointer">
+              <Link href={`/playground/${project.projectId}?frameId=${project.frameId}`} key={index} className="my-2 hover:bg-secondary p-2 rounded-lg cursor-pointer block border-none outline-none">
                 <h2 className="line-clamp-1">{project.chats?.[0]?.chatMessages?.[0]?.content}</h2>
               </Link>
             )) :
