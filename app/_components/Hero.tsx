@@ -92,7 +92,7 @@ function Hero() {
       {/* input box */}
       <div className='relative w-full max-w-2xl p-5 border mt-5 rounded-2xl overflow-hidden'>
         <BorderBeam duration={12} />
-        <textarea placeholder='Describe your page design'
+        <textarea placeholder='Describe your page design...'
         value={userInput}
         onChange={(event)=>setUserInput(event.target.value)}
         className='w-full h-24 focus:outline-none focus:ring-0 resize-none'
