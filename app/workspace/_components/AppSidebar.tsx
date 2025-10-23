@@ -77,32 +77,32 @@ export function AppSidebar() {
   }
   return (
     <Sidebar>
-      <SidebarHeader className="p-5">
+      <SidebarHeader className="p-3 sm:p-5">
         <div className="items-center flex gap-2">
           <Link href={'/workspace'} className="flex items-center gap-2">
-          <Image src={'/Nexdrew_log.png'} alt="logo" width={50} height={50} />
-          <h2 className="text-xl font-bold"><ShinyText text="NexDrew" speed={5} /></h2>
+          <Image src={'/Nexdrew_log.png'} alt="logo" width={40} height={40} className="sm:w-[50px] sm:h-[50px]" />
+          <h2 className="text-lg sm:text-xl font-bold"><ShinyText text="NexDrew" speed={5} /></h2>
           </Link>
         </div>
-        <Button className="w-full mt-5" onClick={CreateNewProject} disabled={loading}>
+        <Button className="w-full mt-3 sm:mt-5 text-sm sm:text-base" onClick={CreateNewProject} disabled={loading}>
           + Add New Project
         </Button>
 
       </SidebarHeader>
       <SidebarContent className="p-2">
         <SidebarGroup>
-          <SidebarGroupLabel>Projects</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-xs sm:text-sm">Projects</SidebarGroupLabel>
           {!loading && projectList.length == 0 &&
-          <h2 className="text-sm px-2 text-gray-500">No Project Found</h2>}
+          <h2 className="text-xs sm:text-sm px-2 text-gray-500">No Project Found</h2>}
 
           <div>
             {(!loading&&projectList.length>0) ? projectList.map((project:any,index)=>(
               <Link href={`/playground/${project.projectId}?frameId=${project.frameId}`} key={index} className="my-2 hover:bg-secondary p-2 rounded-lg cursor-pointer block border-none outline-none">
-                <h2 className="line-clamp-1">{project.chats?.[0]?.chatMessages?.[0]?.content}</h2>
+                <h2 className="line-clamp-1 text-sm sm:text-base">{project.chats?.[0]?.chatMessages?.[0]?.content}</h2>
               </Link>
             )) :
             [1,2,3,4,5].map((_,index)=>(
-              <Skeleton key={index} className="w-full h-10 rounded-lg mt-2" />
+              <Skeleton key={index} className="w-full h-8 sm:h-10 rounded-lg mt-2" />
             ))
             }
           </div>
@@ -111,19 +111,19 @@ export function AppSidebar() {
       </SidebarContent>
       <SidebarFooter className="p-2">
         {!hasUnlimitedAccess &&
-        <div className="p-3 border rounded-xl space-y-3 bg-secondary">
+        <div className="p-2 sm:p-3 border rounded-xl space-y-2 sm:space-y-3 bg-secondary">
         
-          <h2 className="flex justify-between items-center">Remaining Credits <span className="font-bold">{userDetail?.credits}</span></h2>
+          <h2 className="flex justify-between items-center text-xs sm:text-sm">Remaining Credits <span className="font-bold">{userDetail?.credits}</span></h2>
           <Progress value={(userDetail?.credits/4)*100} />
           <Link href={'/workspace/pricing'}>
-            <Button className="w-full">
+            <Button className="w-full text-xs sm:text-sm">
               Upgrade to Unlimited
             </Button>
           </Link>
         </div>}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 mt-2">
           <UserButton />
-          <Button variant={'ghost'} >Settings</Button>
+          <Button variant={'ghost'} className="text-xs sm:text-sm">Settings</Button>
         </div>
       </SidebarFooter>
     </Sidebar>

@@ -1,9 +1,9 @@
 "use client"
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Menu, X } from 'lucide-react'
 import { SignInButton, useUser } from '@clerk/nextjs'
 import { toast } from 'sonner'
 import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler"
@@ -13,6 +13,7 @@ import { AuroraText } from "@/components/ui/aurora-text"
 import ShinyText from '@/components/ShinyText'
 import VariableProximity from '@/components/VariableProximity'
 import { useRef } from 'react'
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 
 
 const MenuOptions=[
@@ -30,6 +31,7 @@ function Header() {
   const { user } = useUser()
   const { setTheme } = useTheme()
   const containerRef = useRef<HTMLDivElement | null>(null)
+  const [isOpen, setIsOpen] = useState(false)
 
   // Set dark as default on first visit without overriding saved preference
   useEffect(()=>{
@@ -45,12 +47,12 @@ function Header() {
     <div className="flex items-center justify-between p-4 shadow">
       {/* logo */}
       <div className="flex items-center gap-1">
-        <Image src={"/Nexdrew_log.png"} alt="logo" width={50} height={50} />
-        <h2 className="text-2xl font-bold"><ShinyText text="NexDrew" speed={5} /></h2>
+        <Image src={"/Nexdrew_log.png"} alt="logo" width={40} height={40} className="sm:w-[50px] sm:h-[50px]" />
+        <h2 className="text-xl sm:text-2xl font-bold"><ShinyText text="NexDrew" speed={5} /></h2>
       </div>
 
-      {/* Menu Options with VariableProximity */}
-      <div className="flex items-center gap-6" ref={containerRef} style={{position:'relative', fontVariationSettings: "'wght' 400, 'opsz' 14"}}>
+      {/* Desktop Menu - Hidden on mobile */}
+      <div className="hidden md:flex items-center gap-6" ref={containerRef} style={{position:'relative', fontVariationSettings: "'wght' 400, 'opsz' 14"}}>
         <Link href={'/workspace/pricing'}>
           <VariableProximity
             label={'Pricing'}
@@ -73,11 +75,8 @@ function Header() {
         </button>
       </div>
 
-      {/* {Toggle Button} */}
-      
-
-      {/* Get Started Button */}
-      <div className='flex items-center gap-4'>
+      {/* Desktop Actions - Hidden on mobile */}
+      <div className='hidden md:flex items-center gap-4'>
         <AnimatedThemeToggler />
         {!user ? 
           <SignInButton mode='modal' forceRedirectUrl={'/workspace'}>
@@ -93,6 +92,43 @@ function Header() {
           </Link>
         }
       </div>
+
+      {/* Mobile Menu Button */}
+      <Sheet open={isOpen} onOpenChange={setIsOpen}>
+        <SheetTrigger asChild className="md:hidden">
+          <Button variant="ghost" size="icon">
+            <Menu className="h-6 w-6" />
+          </Button>
+        </SheetTrigger>
+        <SheetContent side="right" className="w-[300px] sm:w-[400px]">
+          <div className="flex flex-col gap-6 mt-8 px-4">
+            <Link href={'/workspace/pricing'} onClick={() => setIsOpen(false)} className="text-lg font-medium hover:text-primary text-center">
+              Pricing
+            </Link>
+            <button onClick={()=>{toast.info('Currently unavailable! We are working on it.'); setIsOpen(false)}} className="text-lg font-medium hover:text-primary text-center">
+              Contact Us
+            </button>
+            <div className="flex justify-center py-4">
+              <AnimatedThemeToggler />
+            </div>
+            <div className="border-t pt-6 px-6">
+              {!user ? 
+                <SignInButton mode='modal' forceRedirectUrl={'/workspace'}>
+                  <ShimmerButton className="w-full px-3 py-1.5 text-xs">
+                    <span className="flex items-center justify-center gap-1">Workspace <ArrowRight size={16} /></span>
+                  </ShimmerButton>
+                </SignInButton>
+               : 
+                <Link href={'/workspace'} onClick={() => setIsOpen(false)}>
+                  <ShimmerButton className="w-full px-3 py-1.5 text-xs">
+                    <span className="flex items-center justify-center gap-1">Workspace <ArrowRight size={16} /></span>
+                  </ShimmerButton>
+                </Link>
+              }
+            </div>
+          </div>
+        </SheetContent>
+      </Sheet>
     </div>
   )
 }

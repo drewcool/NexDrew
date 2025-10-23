@@ -195,7 +195,7 @@ function PlayGround() {
   return (
     <div>
         <PlaygroundHeader />
-      <div className='flex'>
+      <div className='flex flex-col md:flex-row overflow-hidden'>
         {/* chat section */}
         <ChatSection messages={messages ?? []} onSend={(input:string)=>SendMessage(input)} loading={loading} />
         {/* websiteDesign */}

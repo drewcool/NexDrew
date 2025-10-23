@@ -115,9 +115,9 @@ function ImageSettingSection({ selectedEL }: Props) {
   }
 
   return (
-    <div className="w-60 shadow p-4 space-y-4">
-      <h2 className="flex gap-2 items-center font-bold">
-        <ImageIcon /> Image Settings
+    <div className="w-full lg:w-60 shadow p-3 sm:p-4 space-y-3 sm:space-y-4 h-auto lg:h-[90vh] rounded-xl mt-2 lg:mr-2 overflow-y-auto">
+      <h2 className="flex gap-2 items-center font-bold text-sm sm:text-base">
+        <ImageIcon className="w-4 h-4 sm:w-5 sm:h-5" /> Image Settings
       </h2>
 
       {/* Preview (clickable) */}
@@ -125,7 +125,7 @@ function ImageSettingSection({ selectedEL }: Props) {
         <img
           src={preview}
           alt={altText}
-          className="max-h-40 object-contain border rounded cursor-pointer hover:opacity-80"
+          className="max-h-32 sm:max-h-40 object-contain border rounded cursor-pointer hover:opacity-80"
           onClick={openFileDialog}
           onLoad={() => setLoading(false)}
           //Loading off if error throws
@@ -146,33 +146,34 @@ function ImageSettingSection({ selectedEL }: Props) {
       <Button
         type="button"
         variant="outline"
-        className="w-full"
+        className="w-full text-xs sm:text-sm"
         onClick={saveUploadedFile}
         disabled={loading}
+        size="sm"
       >
-        {loading && <Loader2Icon className="animate-spin" />}Upload Image
+        {loading && <Loader2Icon className="animate-spin w-4 h-4 sm:w-5 sm:h-5" />}Upload Image
       </Button>
 
       {/* Alt text */}
       <div>
-        <label className="text-sm">Prompt</label>
+        <label className="text-xs sm:text-sm block mb-1">Prompt</label>
         <Input
           type="text"
           value={altText}
           onChange={(e) => setAltText(e.target.value)}
           placeholder="Enter alt text"
-          className="mt-1"
+          className="text-xs sm:text-sm"
         />
       </div>
 
-      <Button className="w-full" onClick={GenerateAiImage} disabled={loading}>
-        {loading && <Loader2Icon className="animate-spin" />} Generate AI Image
+      <Button className="w-full text-xs sm:text-sm" onClick={GenerateAiImage} disabled={loading} size="sm">
+        {loading && <Loader2Icon className="animate-spin w-4 h-4 sm:w-5 sm:h-5" />} Generate AI Image
       </Button>
 
       {/* Transform Buttons */}
       <div>
-        <label className="text-sm mb-1 block">AI Transform</label>
-        <div className="flex gap-2 flex-wrap">
+        <label className="text-xs sm:text-sm mb-1 block">AI Transform</label>
+        <div className="flex gap-1.5 sm:gap-2 flex-wrap">
           <TooltipProvider>
             {transformOptions.map((opt) => {
               const applied = activeTransforms.includes(opt.value);
@@ -182,10 +183,11 @@ function ImageSettingSection({ selectedEL }: Props) {
                     <Button
                       type="button"
                       variant={preview.includes(opt.transformation) ? 'default' : "outline"}
-                      className="flex items-center justify-center p-2"
+                      className="flex items-center justify-center p-1.5 sm:p-2"
                       onClick={() => ApplyTransformation(opt.transformation)}
+                      size="sm"
                     >
-                      {opt.icon}
+                      <span className="w-4 h-4 sm:w-5 sm:h-5">{opt.icon}</span>
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent>
@@ -202,21 +204,21 @@ function ImageSettingSection({ selectedEL }: Props) {
       {activeTransforms.includes("resize") && (
         <div className="flex gap-2">
           <div className="flex-1">
-            <label className="text-sm">Width</label>
+            <label className="text-xs sm:text-sm block mb-1">Width</label>
             <Input
               type="number"
               value={width}
               onChange={(e) => setWidth(Number(e.target.value))}
-              className="mt-1"
+              className="text-xs sm:text-sm"
             />
           </div>
           <div className="flex-1">
-            <label className="text-sm">Height</label>
+            <label className="text-xs sm:text-sm block mb-1">Height</label>
             <Input
               type="number"
               value={height}
               onChange={(e) => setHeight(Number(e.target.value))}
-              className="mt-1"
+              className="text-xs sm:text-sm"
             />
           </div>
         </div>
@@ -224,13 +226,13 @@ function ImageSettingSection({ selectedEL }: Props) {
 
       {/* Border Radius */}
       <div>
-        <label className="text-sm">Border Radius</label>
+        <label className="text-xs sm:text-sm block mb-1">Border Radius</label>
         <Input
           type="text"
           value={borderRadius}
           onChange={(e) => setBorderRadius(e.target.value)}
           placeholder="e.g. 8px or 50%"
-          className="mt-1"
+          className="text-xs sm:text-sm"
         />
       </div>
     </div>

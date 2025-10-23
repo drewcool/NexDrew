@@ -8,14 +8,14 @@ import ShinyText from '@/components/ShinyText';
 function PlaygroundHeader() {
   const {onSaveData, setOnSaveData} = useContext(OnSaveContext);
   return (
-    <div className='flex items-center justify-between p-4 shadow'>
+    <div className='flex items-center justify-between p-3 sm:p-4 shadow'>
       
       <Link href={'/workspace'} className='flex items-center gap-1'>
-        <Image src={'/Nexdrew_log.png'} alt='logo' width={60} height={60} />
-        <h2 className="text-2xl font-bold"><ShinyText text="NexDrew" speed={5} /></h2>
+        <Image src={'/Nexdrew_log.png'} alt='logo' width={40} height={40} className="sm:w-[50px] sm:h-[50px] md:w-[60px] md:h-[60px]" />
+        <h2 className="text-lg sm:text-xl md:text-2xl font-bold"><ShinyText text="NexDrew" speed={5} /></h2>
       </Link>
       
-      <Button onClick={()=> setOnSaveData(Date.now())}>Save</Button>
+      <Button onClick={()=> setOnSaveData(Date.now())} size="sm" className="sm:size-default text-xs sm:text-sm">Save</Button>
     </div>
   )
 }

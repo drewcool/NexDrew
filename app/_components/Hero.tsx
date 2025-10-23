@@ -82,28 +82,28 @@ function Hero() {
     }
   }
   return (
-    <div className='flex flex-col items-center h-[80vh] justify-center'>
+    <div className='flex flex-col items-center min-h-[80vh] justify-center px-4 py-8 sm:px-6 lg:px-8'>
       {/* Header & description */}
-      <h2 className='font-bold text-6xl'>
+      <h2 className='font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-center'>
         <ShinyText text="What should we Design?" speed={5} />
       </h2>
-      <p className='text-xl mt-2 text-gray-500'>Generate, Edit and Explore design with AI, Export code as well</p>
+      <p className='text-base sm:text-lg md:text-xl mt-2 text-gray-500 text-center max-w-2xl px-4'>Generate, Edit and Explore design with AI, Export code as well</p>
 
       {/* input box */}
-      <div className='relative w-full max-w-2xl p-5 border mt-5 rounded-2xl overflow-hidden'>
+      <div className='relative w-full max-w-2xl p-4 sm:p-5 border mt-5 rounded-2xl overflow-hidden'>
         <BorderBeam duration={12} />
         <textarea placeholder='Describe your page design...'
         value={userInput}
         onChange={(event)=>setUserInput(event.target.value)}
-        className='w-full h-24 focus:outline-none focus:ring-0 resize-none'
+        className='w-full h-20 sm:h-24 focus:outline-none focus:ring-0 resize-none text-sm sm:text-base'
         />
         <div className='flex items-center justify-end'>
           {/* <Button variant={'ghost'} size={'icon'}><ImagePlus /></Button>  */}
           {!user ? <SignInButton mode='modal' forceRedirectUrl='/workspace'>
-              <Button disabled={!userInput}><ArrowUp /></Button>
+              <Button disabled={!userInput} size="sm" className="sm:size-default"><ArrowUp className="w-4 h-4 sm:w-5 sm:h-5" /></Button>
           </SignInButton> :
 
-              <Button disabled={!userInput || loading} onClick={CreateNewProject}>{loading?<Loader2Icon className='animate-spin' /> : <ArrowUp />}</Button>
+              <Button disabled={!userInput || loading} onClick={CreateNewProject} size="sm" className="sm:size-default">{loading?<Loader2Icon className='animate-spin w-4 h-4 sm:w-5 sm:h-5' /> : <ArrowUp className="w-4 h-4 sm:w-5 sm:h-5" />}</Button>
             }
 
         </div>
@@ -112,19 +112,23 @@ function Hero() {
 
 
       {/* suggestion list */}
-      <div className='mt-4 flex gap-3'>
+      <div className='mt-4 flex flex-wrap gap-2 sm:gap-3 justify-center max-w-2xl'>
         {suggestions.map((suggestion,index)=>(
           <Button key={index} variant={'outline'}
           onClick={()=> setUserInput(suggestion.prompt)}
+          className="text-xs sm:text-sm flex-shrink-0"
+          size="sm"
           >
-            <suggestion.icon />
-            {suggestion.label}</Button>
+            <suggestion.icon className="w-4 h-4 sm:w-5 sm:h-5" />
+            <span className="hidden sm:inline">{suggestion.label}</span>
+            <span className="sm:hidden">{suggestion.label.split(' ')[0]}</span>
+          </Button>
         ))}
       </div>
 
       {/* Copyright */}
-      <div className='mt-8'>
-        <p className='text-sm text-gray-500'>© Made By Ashish Barnwal with ❤️</p>
+      <div className='mt-6 sm:mt-8'>
+        <p className='text-xs sm:text-sm text-gray-500 text-center'>© Made By Ashish Barnwal with ❤️</p>
       </div>
 
     </div>

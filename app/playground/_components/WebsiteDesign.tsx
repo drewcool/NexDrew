@@ -245,11 +245,11 @@ function WebsiteDesign({ generatedCode }: Props) {
   }
 
   return (
-    <div className="flex gap-2 w-full">
+    <div className="flex flex-col lg:flex-row gap-2 w-full">
       <div className="p-2 w-full flex items-center flex-col">
         <iframe
           ref={iframeRef}
-          className={`${selectedScreenSize == 'web' ? 'w-full' : 'w-130'} h-[600px] border-2 rounded-xl`}
+          className={`${selectedScreenSize == 'web' ? 'w-full' : 'w-full sm:w-130'} h-[400px] sm:h-[500px] md:h-[600px] border-2 rounded-xl`}
           sandbox="allow-scripts allow-same-origin allow-forms"
         />
         <WebPageTools
@@ -259,7 +259,7 @@ function WebsiteDesign({ generatedCode }: Props) {
         />
       </div>
       {/* Setting section */}
-      <div ref={settingsRef}>
+      <div ref={settingsRef} className="w-full lg:w-auto">
       {selectedElement?.tagName == 'IMG' ?
       //@ts-ignore
         <ImageSettingSection selectedEL={selectedElement} />

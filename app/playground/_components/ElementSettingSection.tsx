@@ -83,17 +83,17 @@ function ElementSettingSection({ selectedEl, clearSelection }: Props) {
     setNewClass("");
   };
   return (
-    <div className='w-60 shadow p-4 space-y-4 h-[90vh] rounded-xl mt-2 mr-2'>
-      <h2 className='flex gap-2 items-center font-bold'><SwatchBook /> Settings</h2>
+    <div className='w-full lg:w-60 shadow p-3 sm:p-4 space-y-3 sm:space-y-4 h-auto lg:h-[90vh] rounded-xl mt-2 lg:mr-2 overflow-y-auto'>
+      <h2 className='flex gap-2 items-center font-bold text-sm sm:text-base'><SwatchBook className="w-4 h-4 sm:w-5 sm:h-5" /> Settings</h2>
       {/* Font Size + Text Color inline */}
-      <div className='flex items-center gap-4'>
-        <div className='flex-1'>
-          <label className='text=sm'>Font Size</label>
+      <div className='flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4'>
+        <div className='flex-1 w-full'>
+          <label className='text-xs sm:text-sm block mb-1'>Font Size</label>
 
           <Select defaultValue={selectedEl?.style?.fontSize || '24px'}
             onValueChange={(value) => applyStyle('fontSize', value)}
           >
-            <SelectTrigger className="w-full">
+            <SelectTrigger className="w-full text-xs sm:text-sm">
               <SelectValue placeholder="Select Size" />
             </SelectTrigger>
             <SelectContent>
@@ -106,113 +106,115 @@ function ElementSettingSection({ selectedEl, clearSelection }: Props) {
       </div>
 
       <div>
-        <label className='text-sm mt-3'>Text Color</label>
-        <input type="color" className='w-[40px] h-[40px] rounded border'
+        <label className='text-xs sm:text-sm block mb-1'>Text Color</label>
+        <input type="color" className='w-[35px] h-[35px] sm:w-[40px] sm:h-[40px] rounded border'
           onChange={(event) => applyStyle('color', event.target.value)}
         />
       </div>
 
       {/* Text Alignment */}
       <div>
-        <label>Text Alignment</label>
+        <label className='text-xs sm:text-sm block mb-1'>Text Alignment</label>
         <ToggleGroup
           type="single"
           value={align}
           onValueChange={setAlign}
           className='bg-gray-100 rounded-lg p-1 inline-flex w-full justify-between'
         >
-          <ToggleGroupItem value="left" className='p-2 rounded hover:bg-gray-200 flex-1'>
-            <AlignLeft size={20} />
+          <ToggleGroupItem value="left" className='p-1.5 sm:p-2 rounded hover:bg-gray-200 flex-1'>
+            <AlignLeft className="w-4 h-4 sm:w-5 sm:h-5" />
           </ToggleGroupItem>
-          <ToggleGroupItem value="center" className='p-2 rounded hover:bg-gray-200 flex-1'>
-            <AlignCenter size={20} />
+          <ToggleGroupItem value="center" className='p-1.5 sm:p-2 rounded hover:bg-gray-200 flex-1'>
+            <AlignCenter className="w-4 h-4 sm:w-5 sm:h-5" />
           </ToggleGroupItem>
-          <ToggleGroupItem value="right" className='p-2 rounded hover:bg-gray-200 flex-1'>
-            <AlignRight size={20} />
+          <ToggleGroupItem value="right" className='p-1.5 sm:p-2 rounded hover:bg-gray-200 flex-1'>
+            <AlignRight className="w-4 h-4 sm:w-5 sm:h-5" />
           </ToggleGroupItem>
         </ToggleGroup>
       </div>
 
       {/* Background Color + Border Radius inline */}
-      <div className='flex items-center gap-4'>
+      <div className='flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4'>
         <div>
-          <label className='text-sm block'>Background</label>
+          <label className='text-xs sm:text-sm block mb-1'>Background</label>
           <Input
           type='color'
-          className='w-[40px] h-[40px] rounded-lg mt-1'
+          className='w-[35px] h-[35px] sm:w-[40px] sm:h-[40px] rounded-lg'
           defaultValue={selectedEl?.style.backgroundColor || '#ffffff'}
           onChange={(event) => applyStyle('backgroundColor', event.target.value)}
           />
         </div>
-        <div className="flex-1">
-          <label className='text-sm'>Border Radius</label>
+        <div className="flex-1 w-full sm:w-auto">
+          <label className='text-xs sm:text-sm block mb-1'>Border Radius</label>
           <Input
           type='text'
           placeholder='e.g. 8px'
           defaultValue={selectedEl?.style?.borderRadius || ''}
           onChange={(e) => applyStyle('borderRadius', e.target.value)}
-          className='mt-1'
+          className='text-xs sm:text-sm'
           />
         </div>
       </div>
 
       {/* Padding */}
       <div>
-        <label className='text-sm'>Padding</label>
+        <label className='text-xs sm:text-sm block mb-1'>Padding</label>
         <Input
         type='text'
         placeholder='e.g. 10px 15px'
         defaultValue={selectedEl?.style?.padding || '' }
         onChange={(e) => applyStyle('padding', e.target.value)}
+        className='text-xs sm:text-sm'
         />
       </div>
 
       {/* Margin */}
       <div>
-        <label className='text-sm'>Margin</label>
+        <label className='text-xs sm:text-sm block mb-1'>Margin</label>
         <Input
         type='text'
         placeholder='e.g. 10px 15px'
         defaultValue={selectedEl?.style?.margin || ''}
         onChange={(e) => applyStyle('margin', e.target.value)}
-        className='mt-1' 
+        className='text-xs sm:text-sm'
         />
       </div>
 
       {/* Class Manager */}
       <div>
-        <label className='text-sm font-medium'>Classes</label>
+        <label className='text-xs sm:text-sm font-medium block mb-1'>Classes</label>
          
          {/* Existing Classes as removable chips */}
-         <div className='flex flex-wrap gap-2 mt-2'>
+         <div className='flex flex-wrap gap-1.5 sm:gap-2 mt-2'>
               {classes.length > 0 ? (
                 classes.map((cls) => (
                   <span
                   key={cls}
-                  className='flex text-xs items-center gap-1 px-2 text-sm rounded-full bg-gray-100 border'
+                  className='flex text-xs items-center gap-1 px-1.5 sm:px-2 py-0.5 rounded-full bg-gray-100 border'
                   >
                     {cls}
                     <button
                       onClick={() => removeClass(cls)}
-                      className='ml-1 text-red-500 hover:text-red-700'
+                      className='ml-1 text-red-500 hover:text-red-700 text-sm'
                     >
-                      *
+                      ×
                     </button>
                   </span>
                 ))
               ): (
-                <span className='text-gray-400 text-sm'>No classes applied</span>
+                <span className='text-gray-400 text-xs sm:text-sm'>No classes applied</span>
               )}
          </div>
 
          {/* Add new class input */}
-         <div className='flex gap-2 mt-3'>
+         <div className='flex gap-2 mt-2 sm:mt-3'>
           <Input 
             value={newClass}
             onChange={(e) => setNewClass(e.target.value)}
             placeholder="Add class..."
+            className='text-xs sm:text-sm'
           />
-          <Button type='button' onClick={addClass}>
+          <Button type='button' onClick={addClass} size="sm" className="sm:size-default text-xs sm:text-sm">
             Add
           </Button>
          </div>

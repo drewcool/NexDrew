@@ -76,17 +76,17 @@ function WebPageTools({selectedScreenSize, setselectedScreenSize,generatedCode}:
     URL.revokeObjectURL(url);
   }
   return (
-    <div className='p-2 shadow rounded-xl w-full flex items-center justify-between'>
-      <div className='flex gap-2'>
-        <Button variant={'ghost'} className={`${selectedScreenSize == 'web' ? 'border border-primary':''}`} onClick={()=>setselectedScreenSize('web')}><Monitor /></Button>
-        <Button variant={'ghost'} className={`${selectedScreenSize == 'mobile' ? 'border border-primary':''}`} onClick={()=>setselectedScreenSize('mobile')}><TabletSmartphone /></Button>
+    <div className='p-2 shadow rounded-xl w-full flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-0'>
+      <div className='flex gap-1.5 sm:gap-2'>
+        <Button variant={'ghost'} size="sm" className={`${selectedScreenSize == 'web' ? 'border border-primary':''} text-xs sm:text-sm`} onClick={()=>setselectedScreenSize('web')}><Monitor className="w-4 h-4 sm:w-5 sm:h-5" /></Button>
+        <Button variant={'ghost'} size="sm" className={`${selectedScreenSize == 'mobile' ? 'border border-primary':''} text-xs sm:text-sm`} onClick={()=>setselectedScreenSize('mobile')}><TabletSmartphone className="w-4 h-4 sm:w-5 sm:h-5" /></Button>
       </div>
-      <div className='flex gap-2'>
-        <Button variant={'outline'} onClick={()=>ViewInNewTab()}> View <SquareArrowOutUpRight /></Button>
+      <div className='flex gap-1.5 sm:gap-2 flex-wrap justify-center'>
+        <Button variant={'outline'} size="sm" className="text-xs sm:text-sm" onClick={()=>ViewInNewTab()}> View <SquareArrowOutUpRight className="w-3 h-3 sm:w-4 sm:h-4" /></Button>
         <ViewBlockCode code={finalCode}>
-        <Button> Code <Code2Icon /></Button>
+        <Button size="sm" className="text-xs sm:text-sm"> Code <Code2Icon className="w-3 h-3 sm:w-4 sm:h-4" /></Button>
         </ViewBlockCode>
-        <Button onClick={downloadCode}>Download <Download /></Button>
+        <Button onClick={downloadCode} size="sm" className="text-xs sm:text-sm">Download <Download className="w-3 h-3 sm:w-4 sm:h-4" /></Button>
       </div>
     </div>
   )
