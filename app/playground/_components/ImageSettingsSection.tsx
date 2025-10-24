@@ -156,7 +156,7 @@ function ImageSettingSection({ selectedEL }: Props) {
 
       {/* Alt text */}
       <div>
-        <label className="text-xs sm:text-sm block mb-1">Prompt</label>
+        <label className="text-xs sm:text-sm block mb-1 text-foreground">Prompt</label>
         <Input
           type="text"
           value={altText}
@@ -172,7 +172,7 @@ function ImageSettingSection({ selectedEL }: Props) {
 
       {/* Transform Buttons */}
       <div>
-        <label className="text-xs sm:text-sm mb-1 block">AI Transform</label>
+        <label className="text-xs sm:text-sm mb-1 block text-foreground">AI Transform</label>
         <div className="flex gap-1.5 sm:gap-2 flex-wrap">
           <TooltipProvider>
             {transformOptions.map((opt) => {
@@ -204,7 +204,7 @@ function ImageSettingSection({ selectedEL }: Props) {
       {activeTransforms.includes("resize") && (
         <div className="flex gap-2">
           <div className="flex-1">
-            <label className="text-xs sm:text-sm block mb-1">Width</label>
+            <label className="text-xs sm:text-sm block mb-1 text-foreground">Width</label>
             <Input
               type="number"
               value={width}
@@ -213,7 +213,7 @@ function ImageSettingSection({ selectedEL }: Props) {
             />
           </div>
           <div className="flex-1">
-            <label className="text-xs sm:text-sm block mb-1">Height</label>
+            <label className="text-xs sm:text-sm block mb-1 text-foreground">Height</label>
             <Input
               type="number"
               value={height}
@@ -226,7 +226,7 @@ function ImageSettingSection({ selectedEL }: Props) {
 
       {/* Border Radius */}
       <div>
-        <label className="text-xs sm:text-sm block mb-1">Border Radius</label>
+        <label className="text-xs sm:text-sm block mb-1 text-foreground">Border Radius</label>
         <Input
           type="text"
           value={borderRadius}

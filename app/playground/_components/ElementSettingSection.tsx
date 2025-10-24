@@ -88,7 +88,7 @@ function ElementSettingSection({ selectedEl, clearSelection }: Props) {
       {/* Font Size + Text Color inline */}
       <div className='flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4'>
         <div className='flex-1 w-full'>
-          <label className='text-xs sm:text-sm block mb-1'>Font Size</label>
+          <label className='text-xs sm:text-sm block mb-1 text-foreground'>Font Size</label>
 
           <Select defaultValue={selectedEl?.style?.fontSize || '24px'}
             onValueChange={(value) => applyStyle('fontSize', value)}
@@ -106,7 +106,7 @@ function ElementSettingSection({ selectedEl, clearSelection }: Props) {
       </div>
 
       <div>
-        <label className='text-xs sm:text-sm block mb-1'>Text Color</label>
+        <label className='text-xs sm:text-sm block mb-1 text-foreground'>Text Color</label>
         <input type="color" className='w-[35px] h-[35px] sm:w-[40px] sm:h-[40px] rounded border'
           onChange={(event) => applyStyle('color', event.target.value)}
         />
@@ -114,20 +114,20 @@ function ElementSettingSection({ selectedEl, clearSelection }: Props) {
 
       {/* Text Alignment */}
       <div>
-        <label className='text-xs sm:text-sm block mb-1'>Text Alignment</label>
+        <label className='text-xs sm:text-sm block mb-1 text-foreground'>Text Alignment</label>
         <ToggleGroup
           type="single"
           value={align}
           onValueChange={setAlign}
-          className='bg-gray-100 rounded-lg p-1 inline-flex w-full justify-between'
+          className='bg-gray-100 dark:bg-gray-800 rounded-lg p-1 inline-flex w-full justify-between'
         >
-          <ToggleGroupItem value="left" className='p-1.5 sm:p-2 rounded hover:bg-gray-200 flex-1'>
+          <ToggleGroupItem value="left" className='p-1.5 sm:p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700 flex-1'>
             <AlignLeft className="w-4 h-4 sm:w-5 sm:h-5" />
           </ToggleGroupItem>
-          <ToggleGroupItem value="center" className='p-1.5 sm:p-2 rounded hover:bg-gray-200 flex-1'>
+          <ToggleGroupItem value="center" className='p-1.5 sm:p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700 flex-1'>
             <AlignCenter className="w-4 h-4 sm:w-5 sm:h-5" />
           </ToggleGroupItem>
-          <ToggleGroupItem value="right" className='p-1.5 sm:p-2 rounded hover:bg-gray-200 flex-1'>
+          <ToggleGroupItem value="right" className='p-1.5 sm:p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700 flex-1'>
             <AlignRight className="w-4 h-4 sm:w-5 sm:h-5" />
           </ToggleGroupItem>
         </ToggleGroup>
@@ -136,7 +136,7 @@ function ElementSettingSection({ selectedEl, clearSelection }: Props) {
       {/* Background Color + Border Radius inline */}
       <div className='flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4'>
         <div>
-          <label className='text-xs sm:text-sm block mb-1'>Background</label>
+          <label className='text-xs sm:text-sm block mb-1 text-foreground'>Background</label>
           <Input
           type='color'
           className='w-[35px] h-[35px] sm:w-[40px] sm:h-[40px] rounded-lg'
@@ -145,7 +145,7 @@ function ElementSettingSection({ selectedEl, clearSelection }: Props) {
           />
         </div>
         <div className="flex-1 w-full sm:w-auto">
-          <label className='text-xs sm:text-sm block mb-1'>Border Radius</label>
+          <label className='text-xs sm:text-sm block mb-1 text-foreground'>Border Radius</label>
           <Input
           type='text'
           placeholder='e.g. 8px'
@@ -158,7 +158,7 @@ function ElementSettingSection({ selectedEl, clearSelection }: Props) {
 
       {/* Padding */}
       <div>
-        <label className='text-xs sm:text-sm block mb-1'>Padding</label>
+        <label className='text-xs sm:text-sm block mb-1 text-foreground'>Padding</label>
         <Input
         type='text'
         placeholder='e.g. 10px 15px'
@@ -170,7 +170,7 @@ function ElementSettingSection({ selectedEl, clearSelection }: Props) {
 
       {/* Margin */}
       <div>
-        <label className='text-xs sm:text-sm block mb-1'>Margin</label>
+        <label className='text-xs sm:text-sm block mb-1 text-foreground'>Margin</label>
         <Input
         type='text'
         placeholder='e.g. 10px 15px'
@@ -182,7 +182,7 @@ function ElementSettingSection({ selectedEl, clearSelection }: Props) {
 
       {/* Class Manager */}
       <div>
-        <label className='text-xs sm:text-sm font-medium block mb-1'>Classes</label>
+        <label className='text-xs sm:text-sm font-medium block mb-1 text-foreground'>Classes</label>
          
          {/* Existing Classes as removable chips */}
          <div className='flex flex-wrap gap-1.5 sm:gap-2 mt-2'>
