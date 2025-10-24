@@ -10,7 +10,8 @@ export async function POST(req: NextRequest) {
       "https://openrouter.ai/api/v1/chat/completions",
         {
         // model: "google/gemini-2.5-flash-preview-09-2025",
-        model: "deepseek/deepseek-chat-v3.1",
+        // model: "deepseek/deepseek-chat-v3.1",
+        model: "deepseek/deepseek-v3.2-exp",
         messages,
         stream: true,
       },
