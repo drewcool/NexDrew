@@ -155,7 +155,7 @@ function ImageSettingSection({ selectedEL }: Props) {
       </Button>
 
       {/* Alt text */}
-      <div>
+      {/* <div>
         <label className="text-xs sm:text-sm block mb-1 text-foreground">Prompt</label>
         <Input
           type="text"
@@ -164,14 +164,14 @@ function ImageSettingSection({ selectedEL }: Props) {
           placeholder="Enter alt text"
           className="text-xs sm:text-sm"
         />
-      </div>
+      </div> */}
 
-      <Button className="w-full text-xs sm:text-sm" onClick={GenerateAiImage} disabled={loading} size="sm">
+      {/* <Button className="w-full text-xs sm:text-sm" onClick={GenerateAiImage} disabled={loading} size="sm">
         {loading && <Loader2Icon className="animate-spin w-4 h-4 sm:w-5 sm:h-5" />} Generate AI Image
-      </Button>
+      </Button> */}
 
       {/* Transform Buttons */}
-      <div>
+      {/* <div>
         <label className="text-xs sm:text-sm mb-1 block text-foreground">AI Transform</label>
         <div className="flex gap-1.5 sm:gap-2 flex-wrap">
           <TooltipProvider>
@@ -198,10 +198,10 @@ function ImageSettingSection({ selectedEL }: Props) {
             })}
           </TooltipProvider>
         </div>
-      </div>
+      </div> */}
 
       {/* Conditional Resize Inputs */}
-      {activeTransforms.includes("resize") && (
+      {/* {activeTransforms.includes("resize") && (
         <div className="flex gap-2">
           <div className="flex-1">
             <label className="text-xs sm:text-sm block mb-1 text-foreground">Width</label>
@@ -222,10 +222,10 @@ function ImageSettingSection({ selectedEL }: Props) {
             />
           </div>
         </div>
-      )}
+      )} */}
 
       {/* Border Radius */}
-      <div>
+      {/* <div>
         <label className="text-xs sm:text-sm block mb-1 text-foreground">Border Radius</label>
         <Input
           type="text"
@@ -234,7 +234,7 @@ function ImageSettingSection({ selectedEL }: Props) {
           placeholder="e.g. 8px or 50%"
           className="text-xs sm:text-sm"
         />
-      </div>
+      </div> */}
     </div>
   );
 }

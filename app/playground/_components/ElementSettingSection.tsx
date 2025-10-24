@@ -190,7 +190,7 @@ function ElementSettingSection({ selectedEl, clearSelection }: Props) {
                 classes.map((cls) => (
                   <span
                   key={cls}
-                  className='flex text-xs items-center gap-1 px-1.5 sm:px-2 py-0.5 rounded-full bg-gray-100 border'
+                  className='flex text-xs items-center gap-1 px-1.5 sm:px-2 py-0.5 rounded-full bg-gray-100 border text-gray-900'
                   >
                     {cls}
                     <button
@@ -202,7 +202,7 @@ function ElementSettingSection({ selectedEl, clearSelection }: Props) {
                   </span>
                 ))
               ): (
-                <span className='text-gray-400 text-xs sm:text-sm'>No classes applied</span>
+                <span className='text-gray-400 dark:text-gray-500 text-xs sm:text-sm'>No classes applied</span>
               )}
          </div>
 
