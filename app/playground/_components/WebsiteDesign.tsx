@@ -202,11 +202,22 @@ function WebsiteDesign({ generatedCode }: Props) {
         doc.body.addEventListener('click', handleClick);
       }
       doc.addEventListener('keydown', handleKeyDown);
+
+      // CRITICAL FIX: Cleanup function to remove event listeners
+      return () => {
+        if (doc.body) {
+          doc.body.removeEventListener('mouseover', handleMouseOver);
+          doc.body.removeEventListener('mouseout', handleMouseOut);
+          doc.body.removeEventListener('click', handleClick);
+        }
+        doc.removeEventListener('keydown', handleKeyDown);
+      };
     }
   }, [generatedCode]);
 
   useEffect(()=>{
     onSaveData&& onSaveCode();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[onSaveData]);
 
   const onSaveCode=async()=>{
