@@ -6,23 +6,29 @@ export async function POST(req: NextRequest) {
   try {
     const { messages } = await req.json();
 
+    // Optimized for complete website generation with deepseek-v3.2-exp
+    // This model excels at code generation with better speed and long-context handling
     const response = await axios.post(
       "https://openrouter.ai/api/v1/chat/completions",
         {
-        // model: "google/gemini-2.5-flash-preview-09-2025",
-        // model: "deepseek/deepseek-chat-v3.1",
-        model: "deepseek/deepseek-v3.2-exp",
+        model: "deepseek/deepseek-v3.2-exp",  // Better for code generation, faster inference
         messages,
         stream: true,
+        temperature: 0.2,  // Even lower for more focused, structured code generation
+        max_tokens: 8000,  // Increased to ensure complete website generation
+        top_p: 0.8,  // More deterministic for maintaining HTML structure
+        frequency_penalty: 0.3,  // Higher to prevent repetitive class dumping
+        presence_penalty: 0.2,  // Encourage focused content generation
       },
       {
         headers: {
           Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
           "Content-Type": "application/json",
           "HTTP-Referer": "http://localhost:3000",
-          "X-Title": "My Next.js App",
+          "X-Title": "NexDrew AI Website Builder",
         },
         responseType: "stream",
+        timeout: 90000,  // 90 seconds to allow for complete generation
       }
     );
 
