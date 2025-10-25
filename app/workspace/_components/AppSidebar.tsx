@@ -54,7 +54,7 @@ export function AppSidebar() {
     const messages = [
       {
         role:'user',
-        content:'Create a new website design'
+        content:'Hi'
       }
     ]
     try{

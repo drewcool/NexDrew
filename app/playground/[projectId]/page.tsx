@@ -154,8 +154,8 @@ const SYSTEM_PROMPT = `You are an expert frontend developer specializing in crea
    - Better to have a complete, shorter website than an incomplete, broken one
 
 8. **For Non-Code Requests:**
-   - If user says "Hi", "Hello", or asks questions, respond conversationally
-   - Do NOT generate code for greetings or general questions
+    - If user says "Hi", "Hello", or asks questions, respond conversationally
+    - Do NOT generate code for greetings or general questions
 
 **COMPONENT USAGE PRIORITY:**
 1. ALWAYS use shadcn/ui components as the foundation
@@ -222,11 +222,16 @@ function PlayGround() {
       {role: "user", content: userInput}
     ];
 
-    // If there's existing generated code, include it in the context
-    if (generatedCode && generatedCode.trim()) {
+    // If there's existing generated code, include it in the context for modifications
+    // This helps AI understand what to modify instead of regenerating from scratch
+    if (generatedCode && generatedCode.trim() && messages.length > 0) {
       const lastAssistantIndex = conversationHistory.map(m => m.role).lastIndexOf('assistant');
       if (lastAssistantIndex > 0) {
-        conversationHistory[lastAssistantIndex].content = `[Previous generated code]:\n\`\`\`html\n${generatedCode}\n\`\`\`\n\nUser request: ${userInput}`;
+        // Only add context if user is asking to modify, not create new
+        const isModificationRequest = !/create|generate|build|new|fresh|start/i.test(userInput);
+        if (isModificationRequest) {
+          conversationHistory[lastAssistantIndex].content = `[Current website code]:\n\`\`\`html\n${generatedCode.substring(0, 2000)}\n...\n\`\`\`\n\n[User wants to modify]: ${userInput}`;
+        }
       }
     }
 
@@ -241,6 +246,7 @@ function PlayGround() {
 
     let aiResponse = '';
     let isCode = false;
+    let codeStarted = false;
 
     while (true) {
       //@ts-ignore
@@ -249,13 +255,16 @@ function PlayGround() {
 
       const chunk=decorder.decode(value,{stream:true});
       aiResponse+=chunk
+      
       //check if AI start sending code or not
       if(!isCode && aiResponse.includes('```html')){
         isCode=true;
+        codeStarted = true;
         const index=aiResponse.indexOf("```html")+7;
         const initialCodeChunk=aiResponse.slice(index);
         setGeneratedCode(initialCodeChunk);
-      }else if(isCode){
+      }else if(isCode && codeStarted){
+        // Only update code if we've started code generation
         setGeneratedCode((prev:any)=>(prev ?? '')+chunk);
       }
     }
@@ -267,9 +276,10 @@ function PlayGround() {
         {role:'assistant', content: aiResponse}
       ])
     }else{
+      // Save the full code in messages for proper context in next generation
       setMessages((prev:any) => [
         ...(prev || []),
-        {role:'assistant', content: 'Your code is ready!'}
+        {role:'assistant', content: aiResponse}
       ])
     }
     setLoading(false);

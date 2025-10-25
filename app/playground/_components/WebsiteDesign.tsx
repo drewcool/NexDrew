@@ -214,6 +214,49 @@ const HTML_CODE = `<!DOCTYPE html>
             background: hsl(var(--primary) / 0.8);
           }
         </style>
+        <script>
+          // Performance optimization: Throttle animations when cursor leaves iframe
+          (function() {
+            let isMouseInside = false;
+            let rafThrottle = false;
+            const originalRAF = window.requestAnimationFrame;
+            
+            // Override RAF to throttle when mouse is outside
+            window.requestAnimationFrame = function(callback) {
+              if (!isMouseInside && rafThrottle) {
+                // Skip every other frame when mouse is outside
+                rafThrottle = false;
+                return originalRAF.call(window, function() {
+                  rafThrottle = true;
+                });
+              }
+              return originalRAF.call(window, callback);
+            };
+            
+            // Track mouse enter/leave
+            document.addEventListener('mouseenter', function() {
+              isMouseInside = true;
+              rafThrottle = false;
+            }, true);
+            
+            document.addEventListener('mouseleave', function() {
+              isMouseInside = false;
+              rafThrottle = true;
+              
+              // Reduce animation intensity when mouse leaves
+              const style = document.createElement('style');
+              style.id = 'perf-throttle';
+              style.textContent = '* { animation-duration: 2s !important; transition-duration: 0.5s !important; }';
+              document.head.appendChild(style);
+            }, true);
+            
+            document.addEventListener('mouseenter', function() {
+              // Restore normal animation speed when mouse re-enters
+              const style = document.getElementById('perf-throttle');
+              if (style) style.remove();
+            }, true);
+          })();
+        </script>
       </head>
       <body id="root">
       </body>
@@ -622,6 +665,11 @@ function WebsiteDesign({ generatedCode }: Props) {
           ref={iframeRef}
           className={`${selectedScreenSize == 'web' ? 'w-full' : 'w-full sm:w-130'} h-[400px] sm:h-[500px] md:h-[600px] border-2 rounded-xl`}
           sandbox="allow-scripts allow-same-origin allow-forms"
+          style={{
+            transform: 'translateZ(0)',
+            backfaceVisibility: 'hidden',
+            willChange: 'contents'
+          }}
         />
         <WebPageTools
           selectedScreenSize={selectedScreenSize}

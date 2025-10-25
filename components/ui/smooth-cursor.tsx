@@ -210,6 +210,8 @@ export function SmoothCursor({
         zIndex: 9999,
         pointerEvents: "none",
         willChange: "transform",
+        transform: "translateZ(0)", // GPU acceleration
+        backfaceVisibility: "hidden", // Optimize rendering
       }}
       initial={{ opacity: 0, scale: 0 }}
       animate={{ opacity: 1, scale: 1 }}
