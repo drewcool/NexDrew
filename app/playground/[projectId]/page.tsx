@@ -21,7 +21,27 @@ export type Messages = {
 
 const SYSTEM_PROMPT = `You are an expert frontend developer specializing in creating modern, aesthetic, and fully functional web applications. You generate code similar to platforms like Lovable.ai and Emergent Labs.
 
-**CRITICAL: ALWAYS GENERATE COMPLETE WEBSITES**
+**IMPORTANT: Be BRIEF for casual conversations!**
+- For greetings like "Hi", "Hello": Reply with just 1-2 short sentences
+- For questions: Give concise 2-3 sentence answers
+- Only generate code when user explicitly asks to create/build a website
+
+**CRITICAL: MODIFICATION vs. REGENERATION**
+- If you see "[Current website code]" in the context: The user wants to MODIFY the existing website
+- For MODIFICATIONS: Make ONLY the requested changes to the existing code
+  * Change colors? → Just update the color classes
+  * Change text/logo? → Just update the text content
+  * Add a section? → Add it to the existing structure
+  * Remove something? → Remove only that part
+- DO NOT regenerate the entire website from scratch unless user explicitly says:
+  * "create a new website", "start fresh", "build something new", "generate a different design"
+- Examples of MODIFICATION requests:
+  * "change logo to Hired" → Just find the logo text and change it
+  * "make it blue" → Just change color classes to blue variants
+  * "add a contact form" → Add the form section to existing code
+  * "remove the footer" → Just remove the footer section
+
+**CRITICAL: ALWAYS GENERATE COMPLETE WEBSITES (for NEW websites only)**
 - Generate the ENTIRE website from start to finish
 - Include ALL sections: header, hero, features, testimonials, pricing, footer, etc.
 - Do NOT stop halfway through generation
@@ -154,8 +174,14 @@ const SYSTEM_PROMPT = `You are an expert frontend developer specializing in crea
    - Better to have a complete, shorter website than an incomplete, broken one
 
 8. **For Non-Code Requests:**
-    - If user says "Hi", "Hello", or asks questions, respond conversationally
+    - If user says "Hi", "Hello", or casual greetings: Respond with 1-2 short, friendly sentences only
+    - For general questions: Give brief, helpful answers (2-3 sentences max)
     - Do NOT generate code for greetings or general questions
+    - Keep conversations SHORT and NATURAL - avoid long explanations
+    - Examples:
+      * User: "Hi" → AI: "Hello! 👋 I'm here to help you create amazing websites. What would you like to build today?"
+      * User: "How are you?" → AI: "I'm doing great, thanks for asking! Ready to help you design something awesome. What's on your mind?"
+      * User: "What can you do?" → AI: "I can create modern, responsive websites for you! Just describe what you need - landing pages, portfolios, dashboards, forms, or any web design you can imagine."
 
 **COMPONENT USAGE PRIORITY:**
 1. ALWAYS use shadcn/ui components as the foundation
@@ -227,10 +253,17 @@ function PlayGround() {
     if (generatedCode && generatedCode.trim() && messages.length > 0) {
       const lastAssistantIndex = conversationHistory.map(m => m.role).lastIndexOf('assistant');
       if (lastAssistantIndex > 0) {
-        // Only add context if user is asking to modify, not create new
-        const isModificationRequest = !/create|generate|build|new|fresh|start/i.test(userInput);
-        if (isModificationRequest) {
-          conversationHistory[lastAssistantIndex].content = `[Current website code]:\n\`\`\`html\n${generatedCode.substring(0, 2000)}\n...\n\`\`\`\n\n[User wants to modify]: ${userInput}`;
+        // Detect if user wants to modify existing website (not create new)
+        const isNewWebsiteRequest = /create\s+(a\s+)?(new|another|different)|generate\s+(a\s+)?(new|another|different)|build\s+(a\s+)?(new|another|different)|start\s+fresh|from\s+scratch/i.test(userInput);
+        
+        // For modification requests, include more context
+        if (!isNewWebsiteRequest) {
+          // Include up to 5000 characters of code for better context
+          const codeContext = generatedCode.length > 5000 
+            ? generatedCode.substring(0, 5000) + '\n... (rest of code remains unchanged)' 
+            : generatedCode;
+          
+          conversationHistory[lastAssistantIndex].content = `[Current website code]:\n\`\`\`html\n${codeContext}\n\`\`\`\n\n[IMPORTANT: User wants to MODIFY the above code. Make ONLY the requested changes. Do NOT regenerate from scratch!]\n[User modification request]: ${userInput}`;
         }
       }
     }
