@@ -32,7 +32,9 @@ function ChatSection({messages, onSend,loading}:Props) {
                   "bg-gray-100 text-black":
                   "bg-gray-300 text-black"
                 }`}>
-                  {msg.content}
+                  {msg.role === 'assistant' && msg.content.includes('```html') 
+                    ? '✨ Your website is ready!' 
+                    : msg.content}
                 </div>
               </div>
             ))
