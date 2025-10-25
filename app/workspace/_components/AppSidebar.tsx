@@ -89,7 +89,7 @@ export function AppSidebar() {
         </Button>
 
       </SidebarHeader>
-      <SidebarContent className="p-2">
+      <SidebarContent className="p-2 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-gray-600 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:hover:bg-gray-500">
         <SidebarGroup>
           <SidebarGroupLabel className="text-xs sm:text-sm">Projects</SidebarGroupLabel>
           {!loading && projectList.length == 0 &&

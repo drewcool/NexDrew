@@ -19,19 +19,19 @@ function ChatSection({messages, onSend,loading}:Props) {
     setInput('');
   }
   return (
-    <div className='w-full md:w-96 shadow h-auto md:h-[91vh] p-3 sm:p-4 flex flex-col'>
+    <div className='w-full md:w-96 shadow h-auto md:h-[91vh] p-3 sm:p-4 flex flex-col overflow-hidden'>
       {/* Message Section */}
-      <div className='flex-1 overflow-y-auto p-2 sm:p-4 space-y-2 sm:space-y-3 flex flex-col max-h-[50vh] md:max-h-none'>
+      <div className='flex-1 overflow-y-auto overflow-x-hidden p-2 sm:p-4 space-y-2 sm:space-y-3 flex flex-col max-h-[50vh] md:max-h-none [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-gray-400 dark:[&::-webkit-scrollbar-thumb]:bg-gray-600 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:hover:bg-gray-500'>
         {messages?.length===0?
         (
             <p className='text-gray-400 text-center text-sm sm:text-base'>No Message Yet!</p>
         ):(
             messages.map((msg,index)=>(
               <div key={index} className= {`flex ${msg.role=='user'?'justify-end':'justify-start'}`}>
-                <div className={`p-2 rounded-lg max-w-[85%] sm:max-w-[80%] text-sm sm:text-base ${msg.role==='user'?
+                <div className={`p-2 rounded-lg max-w-[85%] sm:max-w-[80%] text-sm sm:text-base break-words whitespace-pre-wrap ${msg.role==='user'?
                   "bg-gray-100 text-black":
                   "bg-gray-300 text-black"
-                }`}>
+                }`} style={{ overflowWrap: 'anywhere', wordBreak: 'break-word' }}>
                   {msg.role === 'assistant' && msg.content.includes('```html') 
                     ? '✨ Your website is ready!' 
                     : msg.content}
@@ -51,7 +51,7 @@ function ChatSection({messages, onSend,loading}:Props) {
         <textarea
         value={input}
         placeholder='Describe your website design idea!'
-        className='flex-1 resize-none border rounded-lg px-2 sm:px-3 py-1 sm:py-2 focus:outline-none focus:ring-2 text-sm sm:text-base'
+        className='flex-1 resize-none border rounded-lg px-2 sm:px-3 py-1 sm:py-2 focus:outline-none focus:ring-2 text-sm sm:text-base [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-gray-400 dark:[&::-webkit-scrollbar-thumb]:bg-gray-600 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:hover:bg-gray-500'
         onChange={(event)=>setInput(event.target.value)}
         onKeyDown={(e)=>{ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); handleSend(); } }}
         />
