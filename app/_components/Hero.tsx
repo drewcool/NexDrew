@@ -128,7 +128,7 @@ function Hero() {
 
       {/* Copyright */}
       <div className='mt-6 sm:mt-8'>
-        <p className='text-xs sm:text-sm text-gray-500 text-center'>© Made By Ashish Barnwal & Team with ❤️</p>
+        <p className='text-xs sm:text-sm text-gray-500 text-center'>© Made By Ashish Barnwal with ❤️</p>
       </div>
 
     </div>
