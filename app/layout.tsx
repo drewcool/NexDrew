@@ -35,7 +35,7 @@ export default function RootLayout({
             suppressHydrationWarning
           >
             <Provider>
-              <SmoothCursor />
+              {/* <SmoothCursor /> */}
               <div className="pointer-events-none fixed inset-0 -z-20 w-full h-[200vh] overflow-hidden">
                 <Meteors number={40} minDuration={4} maxDuration={14} />
               </div>
