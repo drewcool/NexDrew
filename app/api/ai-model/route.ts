@@ -14,11 +14,9 @@ export async function POST(req: NextRequest) {
         model: "deepseek/deepseek-v3.2-exp",  // Better for code generation, faster inference
         messages,
         stream: true,
-        temperature: 0.2,  // Even lower for more focused, structured code generation
+        temperature: 0.7,  // Even lower for more focused, structured code generation
         max_tokens: 8000,  // Increased to ensure complete website generation
-        top_p: 0.8,  // More deterministic for maintaining HTML structure
-        frequency_penalty: 0.3,  // Higher to prevent repetitive class dumping
-        presence_penalty: 0.2,  // Encourage focused content generation
+        top_p: 0.8,  // More deterministic for maintaining HTML structure 
       },
       {
         headers: {
